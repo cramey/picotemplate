@@ -9,49 +9,49 @@ basic usage
 -----------
 			
 First, create your template:
-```html
+<code><pre>
 <html>
 	<body>
 		This is my template. My favorite food is {{FOOD}}.
 	</body>
 </html>
-```
+</pre></code>
 
 
 Import the required classes:
-```java
+<code><pre>
 import com.binarythought.picotemplate.Template;
 import com.binarythought.picotemplate.TemplateDictionary;
-```
+</pre></code>
 
 
 Create your template and template dictionary:
-```java
+<code><pre>
 Template template = new Template(new File("mytemplate.tpl"));
 TemplateDictionary dict = new TemplateDictionary();
-```
+</pre></code>
 
 
 Assign a value to the "food" variable (Unassigned variables are not shown):
-```java
+<code><pre>
 dict.put("food", "cookies");
-```
+</pre></code>
 
 
 And parse your template:
-```java
+<code><pre>
 String result = template.parse(dict);
-```
+</pre></code>
 
 
 And the result:
-```html
+<code><pre>
 <html>
 	<body>
 		This is my template. My favorite food is cookies.
 	</body>
 </html>
-```
+</pre></code>
 
 advanced usage
 --------------
@@ -59,7 +59,7 @@ advanced usage
 picotemplate can selectively show areas of static content, called "sections".
 It can also loop over these sections using child dictionaries. Consider the
 following example:
-```html
+<code><pre>
 <html>
 	<body>
 		{{FAVORITE_SHOW}} is probably my favorite show.
@@ -68,45 +68,47 @@ following example:
 		{{/GOODSHOWS}}
 	</body>
 </html>
-```
+</pre></code>
 
 
 Create your template and template dictionary as usual:
-```java
+<code><pre>
 Template template = new Template(new File("mytemplate.tpl"));
 TemplateDictionary dict = new TemplateDictionary();
-```
+</pre></code>
 
 
 Define our favorite show:
-```java
+<code><pre>
 dict.put("favorite_show", "Happy Days");
-```
+</pre></code>
+
 
 Now show the section called "goodshows" (Sections are by default hidden, and
 must be explicitly told to be shown):
-```java
+<code><pre>
 dict.show("goodshows");
-```
+</pre></code>
+
 
 And add some shows for it to loop over:
-```java
+<code><pre>
 TemplateDictionary child1 = dict.createChild("goodshows");
 child1.put("show", "M.A.S.H");
 TemplateDictionary child2 = dict.createChild("goodshows");
 child2.put("show", "A-Team");
-```
+</pre></code>
 
 
 And the result:
-```html
+<code><pre>
 <html>
 	<body>
 		Happy Days is probably my favorite show.
-		
+
 		M.A.S.H is pretty good, too..
-		
+
 		A-Team is pretty good, too..
 	</body>
 </html>
-```
+</pre></code>
