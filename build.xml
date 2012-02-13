@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="picotemplate" default="compile">
+	<property name="version.num" value="1.0" />
+
+	<target name="clean">
+		<delete file="${ant.project.name}-${version.num}.jar" />
+		<delete includeemptydirs="true">
+			<fileset dir="doc" includes="**/*" />
+			<fileset dir="classes" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="classes" />
+		<javac includeantruntime="false" target="1.5"
+			srcdir="src" destdir="classes" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<delete file="${ant.project.name}-${version.num}.jar" />
+		<jar destfile="${ant.project.name}-${version.num}.jar">
+			<fileset dir="classes">
+				<exclude name="**/example/**" />
+			</fileset>
+		</jar>
+	</target>
+  
+	<target name="run" depends="compile">
+		<java classname="com.binarythought.picotemplate.example.TemplateExample"
+			fork="true" maxmemory="64M">
+			<classpath>
+				<dirset dir="classes" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="doc">
+		<mkdir dir="doc" />
+		<javadoc destdir="doc">
+			<fileset dir="src">
+				<exclude name="**/example/**" />
+			</fileset>
+		</javadoc>
+	</target>
+
+</project>
